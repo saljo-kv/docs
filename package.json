@@ -1,0 +1,22 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "description": "Click on `Use this template` to copy the Mintlify starter kit. The starter kit contains examples including",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saljo-kv/docs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saljo-kv/docs/issues"
+  },
+  "homepage": "https://github.com/saljo-kv/docs#readme",
+  "dependencies": {
+    "mint": "^4.2.15"
+  }
+}
