@@ -1,0 +1,109 @@
+---
+title: "Instrumentation Selection"
+description: "Control which instrumentations are enabled in Netra SDK"
+---
+
+Control which instrumentations are enabled in the Netra SDK to customize your observability setup. This section explains how to enable or disable specific instrumentations.
+
+## Available Instrumentation Sets
+
+Netra SDK provides several built-in instrumentation sets that you can enable or disable:
+
+<CodeGroup>
+
+```python python
+from netra.instrumentation.instruments import InstrumentSet
+
+# Available instrumentation sets
+InstrumentSet.OPENAI          # OpenAI API instrumentation
+InstrumentSet.WEAVIATEDB      # Weaviate database instrumentation
+InstrumentSet.FASTAPI         # FastAPI framework instrumentation
+InstrumentSet.HTTPX           # HTTPX client instrumentation
+InstrumentSet.REDIS           # Redis database instrumentation
+```
+
+</CodeGroup>
+
+## Enabling Specific Instrumentations
+
+Enable only the instrumentations you need by specifying them in the `instruments` parameter:
+
+<CodeGroup>
+
+```python python
+from netra import Netra
+from netra.instrumentation.instruments import InstrumentSet
+
+# Enable specific instruments only
+Netra.init(
+    app_name="Selective App",
+    instruments={
+        InstrumentSet.OPENAI,      # Enable OpenAI API tracing
+        InstrumentSet.WEAVIATEDB,  # Enable Weaviate database tracing
+        InstrumentSet.FASTAPI      # Enable FastAPI framework tracing
+    }
+)
+```
+
+</CodeGroup>
+
+## Blocking Specific Instrumentations
+
+Disable specific instrumentations by listing them in the `block_instruments` parameter:
+
+<CodeGroup>
+
+```python python
+from netra import Netra
+from netra.instrumentation.instruments import InstrumentSet
+
+# Block specific instruments
+Netra.init(
+    app_name="Blocked App",
+    block_instruments={
+        InstrumentSet.HTTPX,  # Don't trace HTTPX calls
+        InstrumentSet.REDIS   # Don't trace Redis operations
+    }
+)
+```
+
+</CodeGroup>
+
+## Best Practices
+
+1. **Performance Considerations**
+   - Only enable instrumentations you actually need
+   - Block unnecessary instrumentations in production
+   - Consider the performance impact of each instrumentation
+
+2. **Security Considerations**
+   - Block instrumentations that may expose sensitive data
+   - Review instrumentations in security-sensitive environments
+   - Document which instrumentations are enabled/disabled
+
+3. **Environment-Specific Configurations**
+   - Use different instrumentation sets for different environments
+   - Enable more detailed tracing in development
+   - Keep production configurations minimal and focused
+
+4. **Monitoring and Maintenance**
+   - Regularly review enabled instrumentations
+   - Monitor performance impact of instrumentations
+   - Update configurations based on monitoring feedback
+
+## Troubleshooting
+
+1. **Instrumentation Not Working**
+   - Check if the instrumentation is properly enabled
+   - Verify if the blocked instruments list contains the instrumentation
+   - Check if the required dependencies are installed
+
+2. **Performance Issues**
+   - Review which instrumentations are enabled
+   - Consider blocking unnecessary instrumentations
+   - Monitor and adjust instrumentation configurations
+
+3. **Missing Traces**
+   - Check if the instrumentation is properly enabled
+   - Verify if the instrumentation is blocked
+   - Check if the required dependencies are installed

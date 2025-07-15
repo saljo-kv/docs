@@ -8,7 +8,11 @@
     "light": "#07C983",
     "dark": "#15803D"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "images/favicon.webp",
+  "logo": {
+    "light": "images/logo.svg",
+    "dark": "images/logo.svg"
+  },
   "navigation": {
     "tabs": [
       {
@@ -33,28 +37,27 @@
               "tracing/auto-instrumentation",
               "tracing/instrumentations",
               "tracing/decorators",
-              "session-tracking",
-              "manual-tracing",
+              "tracing/session",
+              "tracing/manual-tracking",
               {
                 "group": "Advanced Configuration",
                 "pages": [
-                  "Environment variables",
-                  "configuration precedence",
-                  "programatic confuguration",
-                  "custom instrumentation selection",
-                  "custom backend integration"
+                  "tracing/advanced-config/environment-variables",
+                  "tracing/advanced-config/programatic-config",
+                  "tracing/advanced-config/instrumentation-selection",
+                  "tracing/advanced-config/custom-backend"
                 ]
               }
             ]
           },
           {
-            "group": "Privacy and Secutiry",
+            "group": "Privacy and Security",
             "pages": [
-              "pii-detection",
+              "privacy-security/pii-detection",
               {
                 "group": "Input Scanners",
                 "pages": [
-                  "prompt-injection"
+                  "privacy-security/input-scanners/prompt-injection"
                 ]
               }
             ]

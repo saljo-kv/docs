@@ -1,0 +1,117 @@
+---
+title: "Custom Backend Integration"
+description: "Integrate Netra SDK with any OpenTelemetry-compatible observability backend"
+---
+
+Since Netra SDK follows the OpenTelemetry standard, you can integrate it with any OpenTelemetry-compatible observability backend. This section explains how to configure custom endpoints and leverage the benefits of OpenTelemetry compatibility.
+
+## Popular OpenTelemetry Backends
+
+Netra SDK is compatible with a wide range of observability platforms:
+
+- **Jaeger** - Distributed tracing platform
+- **Zipkin** - Distributed tracing system
+- **Prometheus** - Monitoring and alerting toolkit
+- **Grafana** - Observability and data visualization
+- **New Relic** - Full-stack observability platform
+- **Datadog** - Monitoring and analytics platform
+- **Honeycomb** - Observability for complex systems
+- **Lightstep** - Distributed tracing and observability
+- **AWS X-Ray** - Distributed tracing service
+- **Google Cloud Trace** - Distributed tracing system
+
+## Custom Endpoint Configuration
+
+### Recommended: Environment Variable Configuration
+
+The simplest way to configure a custom backend is through environment variables:
+
+<CodeGroup>
+
+```bash bash
+# Set custom OTLP endpoint via environment variables
+export NETRA_OTLP_ENDPOINT="https://your-custom-backend.com/v1/traces"
+export NETRA_HEADERS="authorization=Bearer your-token"
+```
+
+</CodeGroup>
+
+The SDK will automatically pick up these environment variables during initialization:
+
+<CodeGroup>
+
+```python python
+from netra import Netra
+
+# Simple initialization - SDK automatically picks up environment variables
+Netra.init(app_name="Your App")
+# No endpoint configuration needed in code!
+```
+
+</CodeGroup>
+
+## Benefits of OpenTelemetry Compatibility
+
+1. **Vendor Agnostic**
+   - Switch between observability platforms without code changes
+   - No vendor lock-in
+   - Easy migration between different monitoring systems
+
+2. **Standard Format**
+   - Consistent telemetry data across all tools
+   - Standardized data model and protocols
+   - Interoperable with any OpenTelemetry-compatible system
+
+3. **Flexible Integration**
+   - Works with existing observability infrastructure
+   - Easy to integrate with current monitoring solutions
+   - No major architectural changes required
+
+4. **Future Proof**
+   - Built on industry-standard protocols
+   - Adapts to new observability tools and platforms
+   - Long-term maintainability
+
+5. **Rich Ecosystem**
+   - Leverage the entire OpenTelemetry ecosystem
+   - Access to a wide range of tools and integrations
+   - Active community support
+
+## Best Practices
+
+1. **Environment Management**
+   - Use different endpoints for different environments
+   - Document endpoint configurations
+   - Test configurations in development
+
+2. **Security Considerations**
+   - Use secure secrets management for authentication
+   - Never hardcode sensitive values
+   - Consider encryption for sensitive data
+
+3. **Performance Optimization**
+   - Choose endpoints based on your performance needs
+   - Monitor and adjust configuration as needed
+   - Consider load balancing for high-traffic applications
+
+4. **Monitoring and Maintenance**
+   - Regularly review backend configurations
+   - Monitor integration performance
+   - Keep documentation updated
+
+## Troubleshooting
+
+1. **Connection Issues**
+   - Verify endpoint URL is correct
+   - Check network connectivity
+   - Validate authentication credentials
+
+2. **Data Not Showing**
+   - Check if endpoint is properly configured
+   - Verify data format compatibility
+   - Check for rate limiting issues
+
+3. **Performance Problems**
+   - Review endpoint configuration
+   - Consider endpoint optimization
+   - Monitor and adjust as needed

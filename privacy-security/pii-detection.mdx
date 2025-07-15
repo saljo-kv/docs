@@ -1,0 +1,151 @@
+---
+title: "PII Detection"
+description: "Detect and mask sensitive information in your application"
+---
+
+Netra SDK provides advanced PII detection with multiple engines:
+
+#### Default PII Detector (Recommended)
+<CodeGroup>
+
+```python python
+from netra.pii import get_default_detector
+
+# Get default detector with custom settings
+detector = get_default_detector(
+    action_type="MASK",  # Options: "BLOCK", "FLAG", "MASK"
+    entities=["EMAIL_ADDRESS", "PERSON", "PHONE_NUMBER"]
+)
+
+# Detect PII in text
+text = "Contact John Doe at john.doe@example.com or call him at 555-123-4567"
+result = detector.detect(text)
+
+print(f"Has PII: {result.has_pii}")
+print(f"Masked text: {result.masked_text}")
+print(f"Entity mappings: {result.entities}")
+```
+
+</CodeGroup>
+
+#### Entity Anonymization Details
+Netra SDK uses different anonymization mechanisms based on entity type:
+
+1. **Email Addresses**
+   - Format-preserving anonymization
+   - Maintains @ and . characters
+   - Example: `john.doe@example.com` → `fank.fzr@hgbcfxa.zrl`
+
+2. **Other Entities**
+   - Hash-based anonymization with consistent hashing
+   - Same entity always produces the same hash
+   - Format: `<ENTITY_TYPE_hash>`
+   - Examples:
+     - Person: `John Doe` → `<PERSON_6cea57c2>`
+     - Phone: `555-123-4567` → `<PHONE_NUMBER_2dcbf551>`
+
+   **Important Note**: The hashing mechanism is deterministic, meaning that the same entity will always produce the same hash value. This ensures consistency across multiple detections and allows for proper data correlation while maintaining privacy.
+   - Format: `<ENTITY_TYPE_hash>`
+   - Examples:
+     - Person: `John Doe` → `<PERSON_6cea57c2>`
+     - Phone: `555-123-4567` → `<PHONE_NUMBER_2dcbf551>`
+
+#### Example Results
+Original text:
+
+```
+Contact John Doe at john.doe@example.com or call him at 555-123-4567
+```
+
+Anonymized text:
+```
+Contact <PERSON_6cea57c2> at fank.fzr@hgbcfxa.zrl or call him at 55<PHONE_NUMBER_2dcbf551>
+```
+
+Entity mappings:
+```
+  PHONE_NUMBER_2dcbf551 -> 5-123-4567
+  fank.fzr@hgbcfxa.zrl -> john.doe@example.com
+  PERSON_6cea57c2 -> John Doe
+```
+
+#### Verification Features
+- Emails maintain format (contains @ and .)
+- Hashes follow consistent naming convention
+- Entity types are preserved in anonymization
+- Consistent mapping between original and anonymized values
+
+#### Presidio-based Detection
+
+<CodeGroup>
+
+```python python
+from netra.pii import PresidioPIIDetector
+
+# Initialize detector with different action types
+detector = PresidioPIIDetector(
+    action_type="MASK",  # Options: "FLAG", "MASK", "BLOCK"
+    score_threshold=0.8,
+    entities=["EMAIL_ADDRESS", "PERSON", "PHONE_NUMBER"]
+)
+
+# Detect PII in text
+text = "Contact John Doe at john.doe@example.com"
+result = detector.detect(text)
+
+print(f"Has PII: {result.has_pii}")
+print(f"Masked text: {result.masked_text}")
+print(f"Entity mappings: {result.entities}")
+```
+
+</CodeGroup>
+
+#### Regex-based Detection
+
+<CodeGroup>
+
+```python python
+from netra.pii import RegexPIIDetector
+import re
+
+# Custom patterns
+custom_patterns = {
+    "EMAIL": re.compile(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"),
+    "PHONE": re.compile(r"\b\d{3}[-.\s]?\d{3}[-.\s]?\d{4}\b"),
+    "CUSTOM_ID": re.compile(r"ID-\d{6}")
+}
+
+detector = RegexPIIDetector(
+    patterns=custom_patterns,
+    action_type="MASK"
+)
+
+result = detector.detect("User ID-123456 email: user@test.com")
+```
+
+</CodeGroup>
+
+#### Chat Message PII Detection
+
+<CodeGroup>
+
+```python python
+from netra.pii import get_default_detector
+
+# Get default detector with custom settings
+detector = get_default_detector(
+    action_type="MASK"  # Options: "BLOCK", "FLAG", "MASK"
+)
+
+# Works with chat message formats
+chat_messages = [
+    {"role": "user", "content": "My email is john@example.com"},
+    {"role": "assistant", "content": "I'll help you with that."},
+    {"role": "user", "content": "My phone is 555-123-4567"}
+]
+
+result = detector.detect(chat_messages)
+print(f"Masked messages: {result.masked_text}")
+```
+
+</CodeGroup>
