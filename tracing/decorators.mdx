@@ -1,45 +1,98 @@
 ---
 title: "Decorators"
-description: "Learn how to easily instrument your code with our custom decorators `@workflow`, `@agent`, and `@task`"
+description: "Easily instrument your code with our custom decorators `@workflow`, `@agent`, and `@task`"
 ---
 
-Follow the code below to understand how decorators can be used to instrument your application.
+Netra SDK offers a set of powerful decorators to simplify the process of instrumenting your AI applications. By adding a simple decorator to your functions or classes, you can automatically create spans, track execution, and capture valuable telemetry data without cluttering your code with manual tracing calls.
+
+Our three main decorators are:
+- `@workflow`: For high-level business transactions or main entry points.
+- `@agent`: For AI agents or complex components that orchestrate multiple tasks.
+- `@task`: For individual units of work or sub-processes within a workflow or agent.
+
+## `@workflow`
+
+The `@workflow` decorator is designed to trace the entire lifecycle of a high-level operation or business workflow. It's ideal for wrapping main functions that orchestrate multiple steps.
 
 <CodeGroup>
 
 ```python Python
-from netra.decorators import workflow, agent, task
+from netra.decorators import workflow
 
 @workflow
 def data_processing_workflow(data):
     """Main workflow for processing data"""
     cleaned_data = clean_data(data)
     return analyze_data(cleaned_data)
+```
+
+</CodeGroup>
+
+You can also provide a custom name for the workflow span:
+
+<CodeGroup>
+
+```python Python
+@workflow(name="Custom Workflow Name")
+def my_workflow():
+    # ...
+```
+
+</CodeGroup>
+
+## `@agent`
+
+The `@agent` decorator is suited for instrumenting AI agents or classes that encapsulate a specific set of responsibilities. When applied to a class, it will automatically instrument all of its public methods.
+
+<CodeGroup>
+
+```python Python
+from netra.decorators import agent
 
 @agent
-def ai_assistant(query):
-    """AI agent that processes user queries"""
-    return generate_response(query)
+class CustomerSupportAgent:
+    def handle_query(self, query):
+        # This method is automatically traced
+        return self.process_query(query)
+
+    def escalate_issue(self, issue):
+        # This method is also traced
+        return self.forward_to_human(issue)
+```
+
+</CodeGroup>
+
+## `@task`
+
+Use the `@task` decorator for more granular tracing of individual functions or methods that represent a single step or task within a larger workflow.
+
+<CodeGroup>
+
+```python Python
+from netra.decorators import task
 
 @task
 def data_validation_task(data):
     """Task for validating input data"""
+    # This function's execution is traced as a separate span
     return validate_schema(data)
+```
 
-# Works with async functions too
+</CodeGroup>
+
+## Async Support
+
+All decorators fully support `async` functions out of the box.
+
+<CodeGroup>
+
+```python Python
+from netra.decorators import workflow
+
 @workflow(name="Async Data Pipeline")
 async def async_workflow(data):
     result = await process_data_async(data)
     return result
-
-# Apply to classes to instrument all methods
-@agent
-class CustomerSupportAgent:
-    def handle_query(self, query):
-        return self.process_query(query)
-
-    def escalate_issue(self, issue):
-        return self.forward_to_human(issue)
 ```
 
 </CodeGroup>

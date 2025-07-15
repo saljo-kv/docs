@@ -7,4 +7,15 @@ Auto instrumentation is a feature that automatically adds observability capabili
 
 Auto instrumentation significantly reduces the implementation overhead for observability. Instead of manually adding tracing calls throughout your codebase, it automatically captures relevant data from popular frameworks, databases, HTTP clients, and other common libraries. This approach ensures consistent instrumentation across your application while minimizing the risk of missing critical telemetry data.
 
-Netra provided auto instrumentation of all major LLMs, Vector Databases, Web Framworks and AI Frameworks.
+### How It Works
+
+When you initialize the Netra SDK with `Netra.init()`, it automatically detects which supported libraries are installed in your Python environment. It then uses a technique known as "monkey-patching" to wrap the key functions and methods of these libraries. This process injects tracing logic that captures operations, such as database queries, HTTP requests, or LLM calls, and sends them as spans to your observability backend—all without requiring you to change your existing code.
+
+### Key Benefits
+
+- **Effortless Integration**: Get deep visibility into your application's performance with minimal setup. There's no need to manually add tracing code for each library you use.
+- **Comprehensive Coverage**: Automatically captures a wide range of telemetry data, including latencies, error rates, and metadata for requests and operations.
+- **Consistency**: Ensures that all parts of your application are instrumented in a standardized way, making it easier to analyze traces and understand the flow of requests across services.
+- **Maintainability**: As you add or update libraries, Netra's auto-instrumentation will automatically cover them, reducing the maintenance burden of your observability setup.
+
+For a complete list of all the libraries and frameworks that Netra automatically instruments, please see the [What's Supported?](/tracing/instrumentations) page.

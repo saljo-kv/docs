@@ -23,8 +23,7 @@
           {
             "group": "Quick start",
             "pages": [
-              "quick-start/installation",
-              "quick-start/getting_started"
+              "quick-start/python"
             ]
           },
           {
