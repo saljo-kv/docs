@@ -4,9 +4,9 @@
   "name": "Netra",
   "description": "AI application observability that provides OpenTelemetry-based monitoring, tracing, and PII protection for LLM and vector database applications. Enables easy instrumentation, session tracking, and privacy-focused data collection for AI systems in production environments.",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#de8900",
+    "light": "#ffb030",
+    "dark": "#c28015"
   },
   "favicon": "images/favicon.webp",
   "logo": {
@@ -27,8 +27,7 @@
           {
             "group": "Quick start",
             "pages": [
-              "quick-start/installation",
-              "quick-start/getting_started"
+              "quick-start/python"
             ]
           },
           {
@@ -96,14 +95,7 @@
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "href": "https://getnetra.ai/"
     }
   }
 }
