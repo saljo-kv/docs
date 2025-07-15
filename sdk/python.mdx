@@ -2,3 +2,220 @@
 title: "Python"
 description: "Welcome to the home of your new documentation"
 ---
+
+## Netra Class
+
+### init
+<CodeGroup>
+
+```python python
+def init(
+    app_name: Optional[str] = None,
+    headers: Optional[str] = None,
+    disable_batch: Optional[bool] = None,
+    trace_content: Optional[bool] = None,
+    resource_attributes: Optional[Dict[str, Any]] = None,
+    environment: Optional[str] = None,
+    instruments: Optional[Set[NetraInstruments]] = None,
+    block_instruments: Optional[Set[NetraInstruments]] = None,
+) -> None
+```
+
+</CodeGroup>
+
+- **Description**: Initialize the Netra SDK with configuration options
+- **Parameters**:
+  - `app_name` (Optional[str]): Name of the application for tracing
+  - `headers` (Optional[str]): Headers for API requests (e.g., API keys)
+  - `disable_batch` (Optional[bool]): Disable batch processing of spans
+  - `trace_content` (Optional[bool]): Enable tracing of content
+  - `resource_attributes` (Optional[Dict[str, Any]]): Additional resource attributes
+  - `environment` (Optional[str]): Application environment (e.g., "production", "development")
+  - `instruments` (Optional[Set[NetraInstruments]]): Set of instruments to enable
+  - `block_instruments` (Optional[Set[NetraInstruments]]): Set of instruments to block
+- **Returns**: None
+
+### set_session_id
+
+<CodeGroup>
+
+```python python
+def set_session_id(session_id: str) -> None
+```
+
+</CodeGroup>
+
+- **Description**: Set session ID context attributes in the current OpenTelemetry context
+- **Parameters**:
+  - `session_id` (str): Unique identifier for the session
+- **Returns**: None
+
+### set_user_id
+```python
+def set_user_id(user_id: str) -> None
+```
+
+- **Description**: Set user ID context attributes in the current OpenTelemetry context
+- **Parameters**:
+  - `user_id` (str): Unique identifier for the user
+- **Returns**: None
+
+### set_tenant_id
+```python
+def set_tenant_id(tenant_id: str) -> None
+```
+
+- **Description**: Set tenant ID context attributes in the current OpenTelemetry context
+- **Parameters**:
+  - `tenant_id` (str): Unique identifier for the tenant
+- **Returns**: None
+
+### set_custom_attributes
+```python
+def set_custom_attributes(key: str, value: Any) -> None
+```
+
+- **Description**: Set custom attributes context in the current OpenTelemetry context
+- **Parameters**:
+  - `key` (str): Custom attribute key
+  - `value` (Any): Custom attribute value
+- **Returns**: None
+
+### set_custom_event
+```python
+def set_custom_event(event_name: str, attributes: Any) -> None
+```
+
+- **Description**: Set custom event in the current OpenTelemetry context
+- **Parameters**:
+  - `event_name` (str): Name of the custom event
+  - `attributes` (Any): Attributes associated with the event
+- **Returns**: None
+
+## SpanWrapper Class
+
+### set_prompt
+<CodeGroup>
+
+```python python
+def set_prompt(self, prompt: str) -> "SpanWrapper"
+```
+
+</CodeGroup>
+
+- **Description**: Set the prompt used in the span
+- **Parameters**:
+  - `prompt` (str): The prompt text
+- **Returns**: SpanWrapper instance (for method chaining)
+
+### set_negative_prompt
+<CodeGroup>
+
+```python python
+def set_negative_prompt(self, prompt: str) -> "SpanWrapper"
+```
+
+</CodeGroup>
+
+- **Description**: Set the negative prompt used in the span
+- **Parameters**:
+  - `prompt` (str): The negative prompt text
+- **Returns**: SpanWrapper instance (for method chaining)
+
+### set_model
+<CodeGroup>
+
+```python python
+def set_model(self, model: str) -> "SpanWrapper"
+```
+
+</CodeGroup>
+
+- **Description**: Set the model name used in the span
+- **Parameters**:
+  - `model` (str): Name of the model
+- **Returns**: SpanWrapper instance (for method chaining)
+
+### set_llm_system
+<CodeGroup>
+
+```python python
+def set_llm_system(self, system: str) -> "SpanWrapper"
+```
+
+</CodeGroup>
+
+- **Description**: Set the LLM system used in the span
+- **Parameters**:
+  - `system` (str): Name of the LLM system
+- **Returns**: SpanWrapper instance (for method chaining)
+
+### set_usage
+<CodeGroup>
+
+```python python
+def set_usage(self, usage_data: List[UsageModel]) -> "SpanWrapper"
+```
+
+</CodeGroup>
+
+- **Description**: Set usage statistics for the span
+- **Parameters**:
+  - `usage_data` (List[UsageModel]): List of usage statistics
+- **Returns**: SpanWrapper instance (for method chaining)
+
+### set_attribute
+<CodeGroup>
+
+```python python
+def set_attribute(self, key: str, value: str) -> "SpanWrapper"
+```
+
+</CodeGroup>
+
+- **Description**: Set a custom attribute for the span
+- **Parameters**:
+  - `key` (str): Attribute key
+  - `value` (str): Attribute value
+- **Returns**: SpanWrapper instance (for method chaining)
+
+### add_event
+<CodeGroup>
+
+```python python
+def add_event(self, name: str, attributes: Dict[str, Any]) -> "SpanWrapper"
+```
+
+</CodeGroup>
+
+- **Description**: Add an event to the span
+- **Parameters**:
+  - `name` (str): Name of the event
+  - `attributes` (Dict[str, Any]): Event attributes
+- **Returns**: SpanWrapper instance (for method chaining)
+
+### get_current_span
+<CodeGroup>
+
+```python python
+def get_current_span(self) -> Optional[trace.Span]
+```
+
+</CodeGroup>
+
+- **Description**: Get the current OpenTelemetry span
+- **Returns**: Current span instance or None if not available
+
+## UsageModel Class
+
+<CodeGroup>
+
+```python python
+class UsageModel(BaseModel):
+    model: str
+    usage_type: str
+    units_used: Optional[int] = None
+    cost_in_usd: Optional[float] = None
+```
+
+</CodeGroup>
