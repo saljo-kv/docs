@@ -22,7 +22,7 @@
           {
             "group": "Quick start",
             "pages": [
-              "quick-start/python",
+              "quick-start/installation",
               "quick-start/troubleshooting"
             ]
           },
