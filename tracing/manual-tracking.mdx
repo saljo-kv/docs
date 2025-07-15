@@ -101,22 +101,6 @@ span.add_event("image_generated", {"status": "success", "output_format": "png"})
 
 </CodeGroup>
 
-## Accessing OpenTelemetry Span
-
-If you need to interact with the underlying OpenTelemetry span:
-
-<CodeGroup>
-
-```python python
-# Get the current active OpenTelemetry span
-otel_span = span.get_current_span()
-
-# You can now use OpenTelemetry's API directly
-otel_span.set_attribute("otel_key", "otel_value")
-```
-
-</CodeGroup>
-
 ## Real-world Examples
 
 ### 1. Image Generation Workflow
@@ -206,117 +190,6 @@ with Netra.start_span("batch_processing") as span:
     })
 ```
 
-## Best Practices
-
-1. **Use Descriptive Span Names**
-   - Choose clear, meaningful names that reflect the operation
-   - Follow a consistent naming convention
-   - Avoid generic names like "process" or "handle"
-
-2. **Track Important Attributes**
-   - Include operation-specific attributes
-   - Track resource usage and costs
-   - Record timing information
-   - Add error details if applicable
-
-3. **Use Events for Workflow Tracking**
-   - Mark important milestones in your operation
-   - Track progress and state changes
-   - Record errors and retries
-   - Include timestamps for timing analysis
-
-4. **Keep Spans Focused**
-   - Each span should represent a single logical operation
-   - Use nested spans for complex operations
-   - Keep spans reasonably short to avoid overwhelming data
-
-5. **Add Contextual Information**
-   - Include user or session information
-   - Track business metrics
-   - Record environmental context
-   - Add error details for troubleshooting
-
-## Troubleshooting
-
-1. **Span Not Showing Up**
-   - Check if SDK is properly initialized
-   - Verify span name is correctly formatted
-   - Ensure span is properly closed
-   - Check for typos in attribute names
-
-2. **Performance Issues**
-   - Use appropriate span granularity
-   - Avoid excessive attribute data
-   - Consider sampling for high-volume operations
-   - Monitor span creation overhead
-
-3. **Data Inconsistency**
-   - Review attribute naming conventions
-   - Check for attribute type mismatches
-   - Validate event schemas
-   - Ensure consistent context propagation
-
-## Advanced Usage
-
-### Nested Spans
-
-You can create nested spans to track hierarchical operations:
-
-<CodeGroup>
-
-```python python
-# Parent span
-with Netra.start_span("parent_operation") as parent_span:
-    # Child span
-    with Netra.start_span("child_operation") as child_span:
-        # The child span will inherit context from the parent
-        # ...
-```
-
-</CodeGroup>
-
-### Span Context Inheritance
-
-Child spans automatically inherit context from their parent spans:
-
-<CodeGroup>
-
-```python python
-# Set base context
-with Netra.start_span("base_operation") as base_span:
-    base_span.set_attribute("user_id", "user_123")
-    base_span.set_attribute("session_id", "session_456")
-    
-    # Child span inherits these attributes
-    with Netra.start_span("child_operation") as child_span:
-        # Child span will have access to user_id and session_id
-        # ...
-```
-
-</CodeGroup>
-
-### Error Handling
-
-Track errors and exceptions effectively:
-
-<CodeGroup>
-
-```python python
-try:
-    with Netra.start_span("critical_operation") as span:
-        # Your operation here
-        # ...
-except Exception as e:
-    span.add_event("error_occurred", {
-        "error_type": type(e).__name__,
-        "error_message": str(e),
-        "stack_trace": traceback.format_exc()
-    })
-    raise
-```
-
-</CodeGroup>
-
 ## Common Use Cases
 
 1. **API Request/Response Tracking**
@@ -324,29 +197,26 @@ except Exception as e:
    - Monitor response times
    - Track error rates
    - Record request parameters
-
 2. **Batch Processing**
    - Track batch operations
    - Monitor progress
    - Record processing times
    - Track success/failure rates
-
 3. **Image/Video Processing**
    - Track media processing operations
    - Monitor resource usage
    - Record processing times
    - Track quality metrics
-
 4. **Data Processing Pipelines**
    - Track data transformation steps
    - Monitor processing stages
    - Record data volumes
    - Track error rates
-
 5. **Machine Learning Operations**
    - Track model inference
    - Monitor resource usage
    - Record processing times
    - Track model performance metricstitle: "Manual Tracking"
-description: "Welcome to the home of your new documentation"
+     description: "Welcome to the home of your new documentation"
+
 ---

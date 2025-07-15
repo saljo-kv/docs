@@ -28,15 +28,15 @@ Netra.init(
 
 ### Available Parameters
 
-| Parameter | Description | Default | Type |
-|-----------|-------------|---------|------|
-| `app_name` | Logical name for your service | `llm_tracing_service` | str |
-| `environment` | Deployment environment (prod, staging, dev) | `local` | str |
-| `resource_attributes` | Custom resource attributes | `{}` | dict |
-| `trace_content` | Whether to capture prompt/completion content | `True` | bool |
-| `disable_batch` | Disable batch span processor | `False` | bool |
-| `api_key` | API key for authentication | `None` | str |
-| `headers` | Additional headers in W3C Correlation-Context format | `None` | str |
+| Parameter             | Description                                          | Default               | Type |
+| --------------------- | ---------------------------------------------------- | --------------------- | ---- |
+| `app_name`            | Logical name for your service                        | `llm_tracing_service` | str  |
+| `environment`         | Deployment environment (prod, staging, dev)          | `local`               | str  |
+| `resource_attributes` | Custom resource attributes                           | `{}`                  | dict |
+| `trace_content`       | Whether to capture prompt/completion content         | `True`                | bool |
+| `disable_batch`       | Disable batch span processor                         | `False`               | bool |
+| `api_key`             | API key for authentication                           | `None`                | str  |
+| `headers`             | Additional headers in W3C Correlation-Context format | `None`                | str  |
 
 ## Advanced Configuration
 
@@ -125,42 +125,3 @@ Netra.init(
 ```
 
 </CodeGroup>
-
-## Best Practices
-
-1. **Configuration Organization**
-   - Keep configuration centralized in one place
-   - Use environment-specific configuration files
-   - Document all configuration values
-
-2. **Security Considerations**
-   - Never hardcode sensitive values
-   - Use secure secrets management
-   - Consider environment-specific settings
-
-3. **Environment Management**
-   - Use different configurations for different environments
-   - Document environment-specific overrides
-   - Test configurations thoroughly
-
-4. **Fallback Mechanisms**
-   - Understand the precedence order
-   - Test fallback mechanisms
-   - Document required vs optional settings
-
-## Troubleshooting
-
-1. **Configuration Not Applied**
-   - Check parameter names match exactly
-   - Verify initialization sequence
-   - Check for typos in parameter values
-
-2. **Invalid Values**
-   - Ensure boolean values are correct (`True`, `False`)
-   - Verify dictionary formats for attributes
-   - Check string formatting for headers
-
-3. **Missing Required Values**
-   - Check if required parameters are set
-   - Verify environment-specific configurations
-   - Review documentation for required parameters

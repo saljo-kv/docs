@@ -30,10 +30,6 @@ Netra.init(
 
 </CodeGroup>
 
-**Note for Intel Mac users**: The `llm-guard` package has a dependency on PyTorch, which may cause installation issues on Intel Mac machines. The base SDK will install and function correctly without llm-guard, with limited prompt injection scanning capabilities. When `llm-guard` is not available, Netra will log appropriate warnings and continue to operate with fallback behavior.
-
-
-
 ## Session Identification
 
 Set unique identifiers for your sessions:
@@ -106,18 +102,15 @@ Netra.set_custom_event(event_name="error_occurred", attributes={
    - Follow a consistent naming convention
    - Use clear, descriptive names that reflect the event's purpose
    - Avoid generic names like "event" or "action"
-
 2. **Include Relevant Attributes**
    - Add attributes that provide meaningful context
    - Include timestamps for time-sensitive events
    - Add user-specific information when relevant
    - Include error details for error events
-
 3. **Maintain Data Consistency**
    - Use consistent attribute names across similar events
    - Maintain consistent data types for attributes
    - Document your event schema if working in a team
-
 4. **Avoid Sensitive Data**
    - Never include PII in event attributes
    - Use appropriate masking or hashing for sensitive values
@@ -187,75 +180,3 @@ Netra.set_custom_event("feature_discovered", {
 ```
 
 </CodeGroup>
-
-## Advanced Usage
-
-### Batch Event Recording
-
-For high-performance scenarios:
-
-<CodeGroup>
-
-```python python
-# Create a batch of events
-batch_events = [
-    {
-        "event_name": "page_view",
-        "attributes": {
-            "page": "/dashboard",
-            "duration": 120
-        }
-    },
-    {
-        "event_name": "button_click",
-        "attributes": {
-            "button_id": "save-button",
-            "section": "settings"
-        }
-    }
-]
-
-# Record batch
-Netra.set_custom_events(batch_events)
-```
-
-</CodeGroup>
-
-### Event Context Inheritance
-
-Events automatically inherit session context:
-
-<CodeGroup>
-
-```python python
-# Set base session context
-Netra.set_session_id("session-123")
-Netra.set_user_id("user-456")
-Netra.set_custom_attributes("user_role", "admin")
-
-# Events will inherit these attributes
-Netra.set_custom_event("admin_action", {
-    "action": "user_management",
-    "target_user": "user-789"
-})
-```
-
-</CodeGroup>
-
-## Troubleshooting
-
-1. **Event Not Showing Up**
-   - Check if SDK is properly initialized
-   - Verify session ID is set
-   - Ensure event name is correctly formatted
-   - Check for typos in attribute names
-
-2. **Performance Issues**
-   - Use batch event recording for high-frequency events
-   - Avoid excessive attribute data
-   - Consider event sampling for high-volume scenarios
-
-3. **Data Inconsistency**
-   - Review event attribute naming conventions
-   - Check for attribute type mismatches
-   - Validate event schemas
