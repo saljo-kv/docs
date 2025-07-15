@@ -1,4 +1,45 @@
 ---
 title: "Decorators"
-description: "Welcome to the home of your new documentation"
+description: "Learn how to easily instrument your code with our custom decorators `@workflow`, `@agent`, and `@task`"
 ---
+
+Follow the code below to understand how decorators can be used to instrument your application.
+
+<CodeGroup>
+
+```python Python
+from netra.decorators import workflow, agent, task
+
+@workflow
+def data_processing_workflow(data):
+    """Main workflow for processing data"""
+    cleaned_data = clean_data(data)
+    return analyze_data(cleaned_data)
+
+@agent
+def ai_assistant(query):
+    """AI agent that processes user queries"""
+    return generate_response(query)
+
+@task
+def data_validation_task(data):
+    """Task for validating input data"""
+    return validate_schema(data)
+
+# Works with async functions too
+@workflow(name="Async Data Pipeline")
+async def async_workflow(data):
+    result = await process_data_async(data)
+    return result
+
+# Apply to classes to instrument all methods
+@agent
+class CustomerSupportAgent:
+    def handle_query(self, query):
+        return self.process_query(query)
+
+    def escalate_issue(self, issue):
+        return self.forward_to_human(issue)
+```
+
+</CodeGroup>
