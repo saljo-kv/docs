@@ -233,7 +233,85 @@ result = chain.run("space exploration")
 
 ## Custom Instrumentation Selection
 
-Control which instrumentations are enabled as per your application. By default, all instrumentations are enabled when you initialize the SDK.
+Control which instrumentations are enabled as per your application. By default, all instrumentations are enabled when you initialize the SDK. You can selectively enable or disable instrumentations using the `instruments` and `block_instruments` parameters in `Netra.init()`.
+
+Below is a complete list of available members in the `InstrumentSet` enum that you can use:
+
+#### LLM Providers
+- `InstrumentSet.OPENAI`
+- `InstrumentSet.ANTHROPIC`
+- `InstrumentSet.COHERE`
+- `InstrumentSet.GOOGLE_GENAI`
+- `InstrumentSet.MISTRAL`
+- `InstrumentSet.ALEPH_ALPHA`
+- `InstrumentSet.BEDROCK`
+- `InstrumentSet.GROQ`
+- `InstrumentSet.OLLAMA`
+- `InstrumentSet.REPLICATE`
+- `InstrumentSet.TOGETHER`
+- `InstrumentSet.TRANSFORMERS`
+- `InstrumentSet.VERTEXAI`
+- `InstrumentSet.WATSONX`
+
+#### Vector Databases
+- `InstrumentSet.WEAVIATE`
+- `InstrumentSet.QDRANT`
+- `InstrumentSet.PINECONE`
+- `InstrumentSet.CHROMA`
+- `InstrumentSet.LANCEDB`
+- `InstrumentSet.MARQO`
+- `InstrumentSet.MILVUS`
+- `InstrumentSet.REDIS`
+
+#### Web Frameworks
+- `InstrumentSet.FASTAPI`
+- `InstrumentSet.DJANGO`
+- `InstrumentSet.FLASK`
+- `InstrumentSet.FALCON`
+- `InstrumentSet.STARLETTE`
+- `InstrumentSet.TORNADO`
+- `InstrumentSet.GRPC`
+
+#### HTTP Clients
+- `InstrumentSet.HTTPX`
+- `InstrumentSet.AIOHTTP`
+- `InstrumentSet.REQUESTS`
+- `InstrumentSet.URLLIB`
+- `InstrumentSet.URLLIB3`
+
+#### Database Clients
+- `InstrumentSet.PYMYSQL`
+- `InstrumentSet.SQLALCHEMY`
+- `InstrumentSet.PSYCOPG`
+- `InstrumentSet.PYMONGO`
+- `InstrumentSet.ELASTICSEARCH`
+- `InstrumentSet.CASSANDRA`
+- `InstrumentSet.PYMSSQL`
+- `InstrumentSet.MYSQL`
+- `InstrumentSet.SQLITE3`
+- `InstrumentSet.AIOPG`
+- `InstrumentSet.ASYNCPG`
+- `InstrumentSet.PYMEMCACHE`
+- `InstrumentSet.TORTOISEORM`
+
+#### Task Queues
+- `InstrumentSet.CELERY`
+- `InstrumentSet.PIKA`
+- `InstrumentSet.AIOPika`
+- `InstrumentSet.KAFKA`
+- `InstrumentSet.AIOKAFKA`
+- `InstrumentSet.CONFLUENT_KAFKA`
+- `InstrumentSet.BOTO3_SQS`
+
+#### AI Frameworks
+- `InstrumentSet.LANGCHAIN`
+- `InstrumentSet.LANGGRAPH`
+- `InstrumentSet.LLAMAINDEX`
+- `InstrumentSet.HAYSTACK`
+- `InstrumentSet.CREWAI`
+- `InstrumentSet.MCP`
+
+### Example Usage
 
 <CodeGroup>
 
