@@ -1,4 +1,269 @@
 ---
 title: "What's supported?"
-description: "Welcome to the home of your new documentation"
+description: "Comprehensive list of all supported LLM providers, vector databases, HTTP clients, and frameworks"
 ---
+
+## LLM Providers
+
+- **OpenAI** - GPT models and completions API
+- **Anthropic Claude** - Claude 3 models and messaging API
+- **Cohere** - Command models and generation API
+- **Google GenAI (Gemini)** - Gemini Pro and other Google AI models
+- **Mistral AI** - Mistral models and chat completions
+- **Aleph Alpha** - Advanced European AI models
+- **AWS Bedrock** - Amazon's managed AI service
+- **Groq** - High-performance AI inference
+- **Ollama** - Local LLM deployment and management
+- **Replicate** - Cloud-based model hosting platform
+- **Together AI** - Collaborative AI platform
+- **Transformers** - Hugging Face transformers library
+- **Vertex AI** - Google Cloud AI platform
+- **Watson X** - IBM's enterprise AI platform
+
+### Example: LLM Instrumentation with OpenAI Integration
+
+<CodeGroup>
+
+```python Python
+import openai
+from netra import Netra
+
+# Initialize Netra SDK
+Netra.init(app_name="OpenAI App")
+
+# Your OpenAI calls are automatically traced
+client = openai.OpenAI(api_key="your-api-key")
+
+response = client.chat.completions.create(
+    model="gpt-4",
+    messages=[
+        {"role": "user", "content": "Hello, world!"}
+    ]
+)
+```
+
+</CodeGroup>
+
+## Vector Databases
+
+- **Weaviate** - Open-source vector database with GraphQL
+- **Qdrant** - High-performance vector similarity search
+- **Pinecone** - Managed vector database service
+- **Chroma** - Open-source embedding database
+- **LanceDB** - Fast vector database for AI applications
+- **Marqo** - Tensor-based search engine
+- **Milvus** - Open-source vector database at scale
+- **Redis** - Vector search with Redis Stack
+
+### Example: Vector Database Instrumentation with Weaviate Integration
+
+<CodeGroup>
+
+```python Python
+import weaviate
+from netra import Netra
+
+# Initialize Netra SDK
+Netra.init(app_name="Vector Search App")
+
+# Weaviate operations are automatically traced
+client = weaviate.Client("http://localhost:8080")
+
+# Query operations include: query text, results, latency
+result = client.query.get("Article", ["title", "content"]).do()
+
+# Traces capture vector operations, embeddings, and performance metrics
+```
+
+</CodeGroup>
+
+## HTTP Clients & Web Frameworks
+
+- **HTTPX** - Modern async HTTP client
+- **AIOHTTP** - Asynchronous HTTP client/server
+- **FastAPI** - Modern web framework for APIs
+- **Requests** - Popular HTTP library for Python
+- **Django** - High-level Python web framework
+- **Flask** - Lightweight WSGI web application framework
+- **Falcon** - High-performance Python web framework
+- **Starlette** - Lightweight ASGI framework/toolkit
+- **Tornado** - Asynchronous networking library and web framework
+- **gRPC** - High-performance, open-source universal RPC framework
+- **Urllib** - Standard Python HTTP client library
+- **Urllib3** - Powerful, user-friendly HTTP client for Python
+
+### Example: Web Framework Instrumentation with FastAPI Integration
+
+<CodeGroup>
+
+```python Python
+from fastapi import FastAPI
+from netra import Netra
+from netra.decorators import workflow
+
+# Initialize Netra SDK
+Netra.init(app_name="FastAPI Service")
+
+app = FastAPI()
+
+@app.post("/chat")
+@workflow
+async def chat_endpoint(message: str):
+    # HTTP requests and responses are automatically traced
+    response = await process_chat_message(message)
+    return {"response": response}
+
+# Traces include: HTTP method, path, status code, duration
+```
+
+</CodeGroup>
+
+## Database Clients
+
+- **PyMySQL** - Pure Python MySQL client
+- **Redis** - In-memory data structure store
+- **SQLAlchemy** - SQL toolkit and Object-Relational Mapper
+- **Psycopg** - Modern PostgreSQL database adapter for Python
+- **Pymongo** - Python driver for MongoDB
+- **Elasticsearch** - Distributed, RESTful search and analytics engine
+- **Cassandra** - Distributed NoSQL database
+- **PyMSSQL** - Simple Microsoft SQL Server client
+- **MySQL Connector** - Official MySQL driver
+- **Sqlite3** - Built-in SQL database engine
+- **Aiopg** - Asynchronous PostgreSQL client
+- **Asyncpg** - Fast asynchronous PostgreSQL client
+- **Pymemcache** - Comprehensive Memcached client
+- **Tortoise ORM** - Easy-to-use asyncio ORM
+
+### Example: Database Instrumentation with SQLAlchemy Integration
+
+<CodeGroup>
+
+```python Python
+from sqlalchemy import create_engine, text
+from netra import Netra
+
+# Initialize Netra SDK
+Netra.init(app_name="Database App")
+
+engine = create_engine("postgresql://user:pass@localhost/db")
+
+# Database queries are automatically traced
+with engine.connect() as conn:
+    result = conn.execute(text("SELECT * FROM users WHERE active = true"))
+    users = result.fetchall()
+
+# Traces include: SQL query, execution time, row count
+```
+
+</CodeGroup>
+
+## Messaging & Task Queues
+
+- **Celery** - Distributed task queue
+- **Pika** - Pure-Python implementation of the AMQP 0-9-1 protocol
+- **AIO Pika** - Asynchronous AMQP client
+- **Kafka-Python** - Python client for Apache Kafka
+- **AIOKafka** - Asynchronous Python client for Kafka
+- **Confluent-Kafka** - Confluent's Python client for Apache Kafka
+- **Boto3 SQS** - Amazon SQS client via Boto3
+
+### Example: Messaging Instrumentation with Celery Integration
+
+<CodeGroup>
+
+```python Python
+from celery import Celery
+from netra import Netra
+from netra.decorators import task
+
+# Initialize Netra SDK
+Netra.init(app_name="Task Queue App")
+
+app = Celery('tasks', broker='redis://localhost:6379')
+
+@app.task
+@task
+def process_data(data):
+    # Task execution is automatically traced
+    result = expensive_computation(data)
+    return result
+
+# Traces include: task name, arguments, execution time, result
+```
+
+</CodeGroup>
+
+## AI Frameworks & Orchestration
+
+- **LangChain** - Framework for developing LLM applications
+
+- **LangGraph** - Modern framework for LLM applications
+
+- **LlamaIndex** - Data framework for LLM applications
+
+- **Haystack** - End-to-end NLP framework
+
+- **CrewAI** - Multi-agent AI systems
+
+- **MCP (Model Context Protocol)** - AI model communication standard
+
+### Example: AI Framework Instrumentation with LangChain Integration
+
+<CodeGroup>
+
+```python Python
+from langchain.llms import OpenAI
+from langchain.chains import LLMChain
+from langchain.prompts import PromptTemplate
+from netra import Netra
+
+# Initialize Netra SDK
+Netra.init(app_name="LangChain App")
+
+# LangChain operations are automatically traced
+llm = OpenAI(temperature=0.7)
+prompt = PromptTemplate(
+    input_variables=["topic"],
+    template="Write a short story about {topic}"
+)
+
+chain = LLMChain(llm=llm, prompt=prompt)
+result = chain.run("space exploration")
+
+# Traces include: chain execution, prompts, responses, and token usage
+```
+
+</CodeGroup>
+
+## Custom Instrumentation Selection
+
+Control which instrumentations are enabled as per your application. By default, all instrumentations are enabled when you initialize the SDK.
+
+<CodeGroup>
+
+```python Python
+from netra import Netra
+from netra.instrumentation.instruments import InstrumentSet
+
+# Enable specific instruments only
+Netra.init(
+    app_name="Selective App",
+    instruments={
+        InstrumentSet.OPENAI,
+        InstrumentSet.WEAVIATEDB,
+        InstrumentSet.FASTAPI
+    }
+)
+
+# Block specific instruments
+Netra.init(
+    app_name="Blocked App",
+    block_instruments={
+        InstrumentSet.HTTPX,  # Don't trace HTTPX calls
+        InstrumentSet.REDIS   # Don't trace Redis operations
+    }
+)
+```
+
+</CodeGroup>
