@@ -1,0 +1,115 @@
+---
+title: "Environment Variables"
+description: "Configure Netra SDK using environment variables"
+---
+
+Netra SDK can be configured using environment variables, providing a flexible way to manage settings without modifying code. This section covers both Netra-specific and standard OpenTelemetry environment variables.
+
+## Netra-specific Variables
+
+Netra provides its own set of environment variables for configuring SDK-specific settings:
+
+<CodeGroup>
+
+```bash bash
+# Set Netra-specific environment variables
+export NETRA_APP_NAME="my-ai-service"
+export NETRA_OTLP_ENDPOINT="https://collector.example.com:4318"
+export NETRA_API_KEY="your-api-key-here"
+export NETRA_ENV="production"
+export NETRA_RESOURCE_ATTRS='{"team":"ai", "version":"1.0.0"}'
+```
+
+</CodeGroup>
+
+### Available Variables
+
+| Variable Name | Description | Default | Example Value |
+|---------------|-------------|---------|---------------|
+| `NETRA_APP_NAME` | Logical name for your service | Falls back to `OTEL_SERVICE_NAME` or `llm_tracing_service` | `my-ai-service` |
+| `NETRA_OTLP_ENDPOINT` | URL for OTLP collector | Falls back to `OTEL_EXPORTER_OTLP_ENDPOINT` | `https://collector.example.com:4318` |
+| `NETRA_API_KEY` | API key for authentication | `None` | `your-api-key-here` |
+| `NETRA_HEADERS` | Additional headers in W3C Correlation-Context format | `None` | `x-api-key=your-api-key` |
+| `NETRA_DISABLE_BATCH` | Disable batch span processor (`true`/`false`) | `false` | `true` |
+| `NETRA_TRACE_CONTENT` | Whether to capture prompt/completion content (`true`/`false`) | `true` | `false` |
+| `NETRA_ENV` | Deployment environment (e.g., `prod`, `staging`, `dev`) | `local` | `production` |
+| `NETRA_RESOURCE_ATTRS` | JSON string of custom resource attributes | `{}` | `{'team': 'ai', 'version': '1.0.0'}` |
+
+## OpenTelemetry Variables
+
+Netra SDK also supports standard OpenTelemetry environment variables for compatibility:
+
+<CodeGroup>
+
+```bash bash
+# Set OpenTelemetry environment variables
+export OTEL_SERVICE_NAME="my-service"
+export OTEL_EXPORTER_OTLP_ENDPOINT="https://otel-collector.example.com:4318"
+export OTEL_EXPORTER_OTLP_HEADERS="api-key=your-key"
+export OTEL_RESOURCE_ATTRIBUTES="team=ai,version=1.0.0"
+```
+
+</CodeGroup>
+
+### Available Variables
+
+| Variable Name | Description | Used When | Example Value |
+|---------------|-------------|-----------|---------------|
+| `OTEL_SERVICE_NAME` | Logical name for your service | When `NETRA_APP_NAME` is not set | `my-service` |
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | URL for OTLP collector | When `NETRA_OTLP_ENDPOINT` is not set | `https://otel-collector.example.com:4318` |
+| `OTEL_EXPORTER_OTLP_HEADERS` | Additional headers for OTLP exporter | When `NETRA_HEADERS` is not set | `api-key=your-key` |
+| `OTEL_RESOURCE_ATTRIBUTES` | Additional resource attributes | When `NETRA_RESOURCE_ATTRS` is not set | `team=ai,version=1.0.0` |
+
+## Configuration Precedence
+
+Configuration values are resolved in the following order (highest to lowest precedence):
+
+1. **Code Parameters**: Values passed directly to `Netra.init()`
+2. **Netra Environment Variables**: `NETRA_*` variables
+3. **OpenTelemetry Environment Variables**: Standard `OTEL_*` variables
+4. **Default Values**: Fallback values defined in the SDK
+
+This allows you to:
+- Override any setting directly in code for maximum control
+- Use Netra-specific environment variables for Netra-specific settings
+- Fall back to standard OpenTelemetry variables for compatibility
+- Rely on sensible defaults when no other configuration is provided
+
+## Best Practices
+
+1. **Use Descriptive Names**
+   - Use clear, meaningful names for your environment variables
+   - Follow consistent naming conventions
+   - Avoid generic names like "API_KEY" or "TOKEN"
+
+2. **Security Considerations**
+   - Never commit sensitive values to version control
+   - Use secure secrets management for API keys and credentials
+   - Consider using configuration management tools for sensitive values
+
+3. **Environment-Specific Configurations**
+   - Use different values for different environments (prod, staging, dev)
+   - Consider using environment-specific configuration files
+   - Document environment-specific overrides
+
+4. **Fallback Mechanisms**
+   - Understand the precedence order
+   - Test fallback mechanisms in different environments
+   - Document which variables are required vs optional
+
+## Troubleshooting
+
+1. **Variable Not Being Read**
+   - Check if the variable name matches exactly (case-sensitive)
+   - Verify the variable is exported in the shell
+   - Check if the variable is being overridden by code parameters
+
+2. **Invalid Values**
+   - Ensure JSON strings are properly formatted
+   - Check boolean values are lowercase (`true`, `false`)
+   - Verify URLs are properly formatted
+
+3. **Missing Required Values**
+   - Check if required variables are set
+   - Verify environment-specific variables are configured
+   - Review documentation for required variables in your use case

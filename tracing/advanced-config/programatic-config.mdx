@@ -1,0 +1,166 @@
+---
+title: "Programmatic Configuration"
+description: "Configure Netra SDK programmatically"
+---
+
+Configure the Netra SDK programmatically when initializing for maximum control over your application's observability settings. This section covers how to set up the SDK using code parameters.
+
+## Basic Configuration
+
+Initialize the SDK with essential parameters:
+
+<CodeGroup>
+
+```python python
+from netra import Netra
+
+# Basic configuration
+Netra.init(
+    app_name="my-ai-service",
+    environment="production",
+    resource_attributes={"team": "ai", "version": "1.0.0"},
+    trace_content=True,
+    disable_batch=False
+)
+```
+
+</CodeGroup>
+
+### Available Parameters
+
+| Parameter | Description | Default | Type |
+|-----------|-------------|---------|------|
+| `app_name` | Logical name for your service | `llm_tracing_service` | str |
+| `environment` | Deployment environment (prod, staging, dev) | `local` | str |
+| `resource_attributes` | Custom resource attributes | `{}` | dict |
+| `trace_content` | Whether to capture prompt/completion content | `True` | bool |
+| `disable_batch` | Disable batch span processor | `False` | bool |
+| `api_key` | API key for authentication | `None` | str |
+| `headers` | Additional headers in W3C Correlation-Context format | `None` | str |
+
+## Advanced Configuration
+
+### Setting Resource Attributes
+
+Add custom attributes to enrich your tracing data:
+
+<CodeGroup>
+
+```python python
+# Set resource attributes
+Netra.init(
+    app_name="my-ai-service",
+    resource_attributes={
+        "team": "ai",
+        "version": "1.0.0",
+        "region": "us-east",
+        "environment": "production"
+    }
+)
+```
+
+</CodeGroup>
+
+### Controlling Content Tracing
+
+Control what content is captured:
+
+<CodeGroup>
+
+```python python
+# Control content tracing
+Netra.init(
+    app_name="my-ai-service",
+    trace_content=True,  # Capture prompt/completion content
+    disable_batch=False  # Enable batch processing
+)
+```
+
+</CodeGroup>
+
+## Example Configurations
+
+### Basic Production Setup
+
+<CodeGroup>
+
+```python python
+from netra import Netra
+
+# Basic production configuration
+Netra.init(
+    app_name="my-production-service",
+    environment="production",
+    resource_attributes={
+        "team": "ai",
+        "version": "1.0.0",
+        "region": "us-east"
+    },
+    trace_content=True,
+    disable_batch=False
+)
+```
+
+</CodeGroup>
+
+### Development Setup
+
+<CodeGroup>
+
+```python python
+from netra import Netra
+
+# Development configuration
+Netra.init(
+    app_name="my-dev-service",
+    environment="development",
+    resource_attributes={
+        "team": "ai",
+        "version": "1.0.0-dev",
+        "developer": "john.doe"
+    },
+    trace_content=True,
+    disable_batch=True  # Disable batch in development
+)
+```
+
+</CodeGroup>
+
+## Best Practices
+
+1. **Configuration Organization**
+   - Keep configuration centralized in one place
+   - Use environment-specific configuration files
+   - Document all configuration values
+
+2. **Security Considerations**
+   - Never hardcode sensitive values
+   - Use secure secrets management
+   - Consider environment-specific settings
+
+3. **Environment Management**
+   - Use different configurations for different environments
+   - Document environment-specific overrides
+   - Test configurations thoroughly
+
+4. **Fallback Mechanisms**
+   - Understand the precedence order
+   - Test fallback mechanisms
+   - Document required vs optional settings
+
+## Troubleshooting
+
+1. **Configuration Not Applied**
+   - Check parameter names match exactly
+   - Verify initialization sequence
+   - Check for typos in parameter values
+
+2. **Invalid Values**
+   - Ensure boolean values are correct (`True`, `False`)
+   - Verify dictionary formats for attributes
+   - Check string formatting for headers
+
+3. **Missing Required Values**
+   - Check if required parameters are set
+   - Verify environment-specific configurations
+   - Review documentation for required parameters
