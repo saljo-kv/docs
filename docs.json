@@ -78,9 +78,9 @@
           "icon": "github"
         },
         {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "PyPI",
+          "href": "https://pypi.org/project/netra-sdk/",
+          "icon": "box"
         }
       ]
     }
