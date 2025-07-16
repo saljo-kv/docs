@@ -19,7 +19,7 @@ Here's a basic example:
 <CodeGroup>
 
 ```python python
-from netra import Netra, UsageModel
+from netra import Netra, UsageModel, ActionModel
 
 # Initialize the SDK (if not already initialized)
 Netra.init(app_name="Your Application Name")
@@ -86,6 +86,52 @@ span.set_attribute("retry_count", 0)
 
 </CodeGroup>
 
+## Adding Action Tracking
+
+Enable custom action tracking in your application using our action tracking utility. The action tracking utility in Netra follows the given schema:
+
+```python
+[
+    {
+        "action": str,                # Type of action (e.g., "DB", "API", "CACHE")
+        "action_type": str,           # Action subtype (e.g., "INSERT", "SELECT", "CALL")
+        "affected_records": [         # Optional: List of records affected
+            {
+                "record_id": str,     # ID of the affected record
+                "record_type": str    # Type of the record
+            }
+        ],
+        "metadata": Dict[str, str],   # Additional metadata as key-value pairs
+        "success": bool              # Whether the action succeeded
+    }
+]
+```
+
+Refer the sample code given to understand how to implement action tracking utility in your application.
+
+<CodeGroup>
+
+```python python
+# Track database operations and other actions
+    action = ActionModel(
+        action="DB",
+        action_type="INSERT",
+        affected_records=[
+            {"record_id": "user_123", "record_type": "user"},
+            {"record_id": "profile_456", "record_type": "profile"}
+        ],
+        metadata={
+            "table": "users",
+            "operation_id": "tx_789",
+            "duration_ms": "45"
+        },
+        success=True
+    )
+    span.set_action([action])
+```
+
+</CodeGroup>
+
 ## Recording Events
 
 Track important events during the span's lifecycle:
@@ -133,6 +179,20 @@ with Netra.start_span("image_generation") as span:
     # ...
     
     span.add_event("image_generated", {"status": "success"})
+
+	# Record API calls
+    api_action = ActionModel(
+        action="API",
+        action_type="CALL",
+        metadata={
+            "endpoint": "/api/v1/process",
+            "method": "POST",
+            "status_code": 200,
+            "duration_ms": "120"
+        },
+        success=True
+    )
+    span.set_action([api_action])
 ```
 
 ### 2. API Request Processing
