@@ -97,14 +97,20 @@ Follow the code below to initialize Netra in you application
 
 ```python Python
 from netra import Netra
+from netra.instrumentation.instruments import InstrumentSet
 
 # Initialize with default settings
 Netra.init(app_name="Your application name")
 
+# Or with custom configuration
+api_key = "Your API key"
+headers = f"x-api-key={api_key}"
 Netra.init(
     app_name="Your application name",
+    headers=headers,
     trace_content=True,
-    environment="Your Application environment"
+    environment="Your Application environment",
+    instruments={InstrumentSet.OPENAI, InstrumentSet.ANTHROPIC},
 )
 ```
 
