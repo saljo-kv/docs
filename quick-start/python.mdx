@@ -30,6 +30,27 @@ poetry add netra-sdk
 
 Netra SDK supports optional dependencies for enhanced functionality:
 
+### Presidio for PII Detetcion
+
+To use the PII detection features provided by Netra SDK:
+
+<CodeGroup>
+
+```shellscript pip
+pip install 'netra-sdk[presidio]'
+```
+
+
+```shellscript poetry
+poetry add netra-sdk --extras "presidio"
+```
+
+</CodeGroup>
+
+<Warning>
+  If you try to use the PII detection utility in Netra SDK without installing this dependency, you will receive an exception. So, always make sure to install the package if you plan to use this utility.
+</Warning>
+
 ### LLM-Guard for Prompt Injection Protection
 
 To use the full functionality of prompt injection scanning provided by llm-guard:
