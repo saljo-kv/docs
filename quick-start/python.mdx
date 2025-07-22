@@ -47,9 +47,9 @@ poetry add netra-sdk --extras "llm_guard"
 
 </CodeGroup>
 
-<Note>
+<Warning>
   The `llm-guard` package has a dependency on PyTorch, which may cause installation issues on Intel Mac machines. The base SDK will install and function correctly without llm-guard, with limited prompt injection scanning capabilities. When `llm-guard` is not available, Netra will log appropriate warnings and continue to operate with fallback behavior.
-</Note>
+</Warning>
 
 ## Initialization
 
