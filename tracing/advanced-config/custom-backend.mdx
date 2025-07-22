@@ -42,9 +42,10 @@ The SDK will automatically pick up these environment variables during initializa
 
 ```python python
 from netra import Netra
+from netra.instrumentation.instruments import InstrumentSet
 
 # Simple initialization - SDK automatically picks up environment variables
-Netra.init(app_name="Your App")
+Netra.init(app_name="Your App", instruments={InstrumentSet.OPENAI})
 # No endpoint configuration needed in code!
 ```
 
