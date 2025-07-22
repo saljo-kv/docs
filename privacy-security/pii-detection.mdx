@@ -5,7 +5,27 @@ description: "Detect and mask sensitive information in your application"
 
 Netra SDK provides advanced PII detection with multiple engines:
 
+To use the PII detection features provided by Netra SDK:
+
+<CodeGroup>
+
+```shellscript pip
+pip install 'netra-sdk[presidio]'
+```
+
+
+```shellscript poetry
+poetry add netra-sdk --extras "presidio"
+```
+
+</CodeGroup>
+
+<Warning>
+  If you try to use the PII detection utility in Netra SDK without installing this dependency, you will receive an exception. So, always make sure to install the package if you plan to use this utility.
+</Warning>
+
 #### Default PII Detector (Recommended)
+
 <CodeGroup>
 
 ```python python
@@ -29,13 +49,13 @@ print(f"Entity mappings: {result.entities}")
 </CodeGroup>
 
 #### Entity Anonymization Details
+
 Netra SDK uses different anonymization mechanisms based on entity type:
 
 1. **Email Addresses**
    - Format-preserving anonymization
    - Maintains @ and . characters
    - Example: `john.doe@example.com` → `fank.fzr@hgbcfxa.zrl`
-
 2. **Other Entities**
    - Hash-based anonymization with consistent hashing
    - Same entity always produces the same hash
@@ -51,6 +71,7 @@ Netra SDK uses different anonymization mechanisms based on entity type:
      - Phone: `555-123-4567` → `<PHONE_NUMBER_2dcbf551>`
 
 #### Example Results
+
 Original text:
 
 ```
@@ -58,11 +79,13 @@ Contact John Doe at john.doe@example.com or call him at 555-123-4567
 ```
 
 Anonymized text:
+
 ```
 Contact <PERSON_6cea57c2> at fank.fzr@hgbcfxa.zrl or call him at 55<PHONE_NUMBER_2dcbf551>
 ```
 
 Entity mappings:
+
 ```
   PHONE_NUMBER_2dcbf551 -> 5-123-4567
   fank.fzr@hgbcfxa.zrl -> john.doe@example.com
@@ -70,6 +93,7 @@ Entity mappings:
 ```
 
 #### Verification Features
+
 - Emails maintain format (contains @ and .)
 - Hashes follow consistent naming convention
 - Entity types are preserved in anonymization
