@@ -22,9 +22,10 @@ Here's a basic example:
 
 ```python python
 from netra import Netra, UsageModel, ActionModel
+from netra.instrumentation.instruments import InstrumentSet
 
 # Initialize the SDK (if not already initialized)
-Netra.init(app_name="Your Application Name")
+Netra.init(app_name="Your Application Name", instruments={InstrumentSet.OPENAI})
 
 # Start a new span
 with Netra.start_span("image_generation") as span:

@@ -13,6 +13,7 @@ Initialize the SDK with essential parameters:
 
 ```python python
 from netra import Netra
+from netra.instrumentations.instruments import InstrumentSet
 
 # Basic configuration
 Netra.init(
@@ -20,7 +21,8 @@ Netra.init(
     environment="production",
     resource_attributes={"team": "ai", "version": "1.0.0"},
     trace_content=True,
-    disable_batch=False
+    disable_batch=False,
+	instruments={InstrumentSet.OPENAI}
 )
 ```
 
@@ -55,7 +57,8 @@ Netra.init(
         "version": "1.0.0",
         "region": "us-east",
         "environment": "production"
-    }
+    },
+	instruments={InstrumentSet.OPENAI}
 )
 ```
 
@@ -72,7 +75,8 @@ Control what content is captured:
 Netra.init(
     app_name="my-ai-service",
     trace_content=True,  # Capture prompt/completion content
-    disable_batch=False  # Enable batch processing
+    disable_batch=False  # Enable batch processing,
+	instruments={InstrumentSet.OPENAI}
 )
 ```
 
@@ -86,6 +90,7 @@ Netra.init(
 
 ```python python
 from netra import Netra
+from netra.instrumentations.instruments import InstrumentSet
 
 # Basic production configuration
 Netra.init(
@@ -97,7 +102,8 @@ Netra.init(
         "region": "us-east"
     },
     trace_content=True,
-    disable_batch=False
+    disable_batch=False,
+	instruments={InstrumentSet.OPENAI}
 )
 ```
 
@@ -109,6 +115,7 @@ Netra.init(
 
 ```python python
 from netra import Netra
+from netra.instrumentations.instruments import InstrumentSet
 
 # Development configuration
 Netra.init(
@@ -120,7 +127,8 @@ Netra.init(
         "developer": "john.doe"
     },
     trace_content=True,
-    disable_batch=True  # Disable batch in development
+    disable_batch=True  # Disable batch in development,
+	instruments={InstrumentSet.OPENAI}
 )
 ```
 

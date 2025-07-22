@@ -20,30 +20,6 @@ description: "Comprehensive list of all supported LLM providers, vector database
 - **Vertex AI** - Google Cloud AI platform
 - **Watson X** - IBM's enterprise AI platform
 
-### Example: LLM Instrumentation with OpenAI Integration
-
-<CodeGroup>
-
-```python Python
-import openai
-from netra import Netra
-
-# Initialize Netra SDK
-Netra.init(app_name="OpenAI App")
-
-# Your OpenAI calls are automatically traced
-client = openai.OpenAI(api_key="your-api-key")
-
-response = client.chat.completions.create(
-    model="gpt-4",
-    messages=[
-        {"role": "user", "content": "Hello, world!"}
-    ]
-)
-```
-
-</CodeGroup>
-
 ## Vector Databases
 
 - **Weaviate** - Open-source vector database with GraphQL
@@ -54,28 +30,6 @@ response = client.chat.completions.create(
 - **Marqo** - Tensor-based search engine
 - **Milvus** - Open-source vector database at scale
 - **Redis** - Vector search with Redis Stack
-
-### Example: Vector Database Instrumentation with Weaviate Integration
-
-<CodeGroup>
-
-```python Python
-import weaviate
-from netra import Netra
-
-# Initialize Netra SDK
-Netra.init(app_name="Vector Search App")
-
-# Weaviate operations are automatically traced
-client = weaviate.Client("http://localhost:8080")
-
-# Query operations include: query text, results, latency
-result = client.query.get("Article", ["title", "content"]).do()
-
-# Traces capture vector operations, embeddings, and performance metrics
-```
-
-</CodeGroup>
 
 ## HTTP Clients & Web Frameworks
 
@@ -91,32 +45,6 @@ result = client.query.get("Article", ["title", "content"]).do()
 - **gRPC** - High-performance, open-source universal RPC framework
 - **Urllib** - Standard Python HTTP client library
 - **Urllib3** - Powerful, user-friendly HTTP client for Python
-
-### Example: Web Framework Instrumentation with FastAPI Integration
-
-<CodeGroup>
-
-```python Python
-from fastapi import FastAPI
-from netra import Netra
-from netra.decorators import workflow
-
-# Initialize Netra SDK
-Netra.init(app_name="FastAPI Service")
-
-app = FastAPI()
-
-@app.post("/chat")
-@workflow
-async def chat_endpoint(message: str):
-    # HTTP requests and responses are automatically traced
-    response = await process_chat_message(message)
-    return {"response": response}
-
-# Traces include: HTTP method, path, status code, duration
-```
-
-</CodeGroup>
 
 ## Database Clients
 
@@ -135,29 +63,6 @@ async def chat_endpoint(message: str):
 - **Pymemcache** - Comprehensive Memcached client
 - **Tortoise ORM** - Easy-to-use asyncio ORM
 
-### Example: Database Instrumentation with SQLAlchemy Integration
-
-<CodeGroup>
-
-```python Python
-from sqlalchemy import create_engine, text
-from netra import Netra
-
-# Initialize Netra SDK
-Netra.init(app_name="Database App")
-
-engine = create_engine("postgresql://user:pass@localhost/db")
-
-# Database queries are automatically traced
-with engine.connect() as conn:
-    result = conn.execute(text("SELECT * FROM users WHERE active = true"))
-    users = result.fetchall()
-
-# Traces include: SQL query, execution time, row count
-```
-
-</CodeGroup>
-
 ## Messaging & Task Queues
 
 - **Celery** - Distributed task queue
@@ -168,32 +73,6 @@ with engine.connect() as conn:
 - **Confluent-Kafka** - Confluent's Python client for Apache Kafka
 - **Boto3 SQS** - Amazon SQS client via Boto3
 
-### Example: Messaging Instrumentation with Celery Integration
-
-<CodeGroup>
-
-```python Python
-from celery import Celery
-from netra import Netra
-from netra.decorators import task
-
-# Initialize Netra SDK
-Netra.init(app_name="Task Queue App")
-
-app = Celery('tasks', broker='redis://localhost:6379')
-
-@app.task
-@task
-def process_data(data):
-    # Task execution is automatically traced
-    result = expensive_computation(data)
-    return result
-
-# Traces include: task name, arguments, execution time, result
-```
-
-</CodeGroup>
-
 ## AI Frameworks & Orchestration
 
 - **LangChain** - Framework for developing LLM applications
@@ -203,34 +82,6 @@ def process_data(data):
 - **CrewAI** - Multi-agent AI systems
 - **MCP (Model Context Protocol)** - AI model communication standard
 
-### Example: AI Framework Instrumentation with LangChain Integration
-
-<CodeGroup>
-
-```python Python
-from langchain.llms import OpenAI
-from langchain.chains import LLMChain
-from langchain.prompts import PromptTemplate
-from netra import Netra
-
-# Initialize Netra SDK
-Netra.init(app_name="LangChain App")
-
-# LangChain operations are automatically traced
-llm = OpenAI(temperature=0.7)
-prompt = PromptTemplate(
-    input_variables=["topic"],
-    template="Write a short story about {topic}"
-)
-
-chain = LLMChain(llm=llm, prompt=prompt)
-result = chain.run("space exploration")
-
-# Traces include: chain execution, prompts, responses, and token usage
-```
-
-</CodeGroup>
-
 ## Custom Instrumentation Selection
 
 Control which instrumentations are enabled as per your application. By default, all instrumentations are enabled when you initialize the SDK. You can selectively enable or disable instrumentations using the `instruments` and `block_instruments` parameters in `Netra.init()`.
@@ -238,6 +89,7 @@ Control which instrumentations are enabled as per your application. By default, 
 Below is a complete list of available members in the `InstrumentSet` enum that you can use:
 
 #### LLM Providers
+
 - `InstrumentSet.OPENAI`
 - `InstrumentSet.ANTHROPIC`
 - `InstrumentSet.COHERE`
@@ -254,6 +106,7 @@ Below is a complete list of available members in the `InstrumentSet` enum that y
 - `InstrumentSet.WATSONX`
 
 #### Vector Databases
+
 - `InstrumentSet.WEAVIATE`
 - `InstrumentSet.QDRANT`
 - `InstrumentSet.PINECONE`
@@ -264,6 +117,7 @@ Below is a complete list of available members in the `InstrumentSet` enum that y
 - `InstrumentSet.REDIS`
 
 #### Web Frameworks
+
 - `InstrumentSet.FASTAPI`
 - `InstrumentSet.DJANGO`
 - `InstrumentSet.FLASK`
@@ -273,6 +127,7 @@ Below is a complete list of available members in the `InstrumentSet` enum that y
 - `InstrumentSet.GRPC`
 
 #### HTTP Clients
+
 - `InstrumentSet.HTTPX`
 - `InstrumentSet.AIOHTTP`
 - `InstrumentSet.REQUESTS`
@@ -280,6 +135,7 @@ Below is a complete list of available members in the `InstrumentSet` enum that y
 - `InstrumentSet.URLLIB3`
 
 #### Database Clients
+
 - `InstrumentSet.PYMYSQL`
 - `InstrumentSet.SQLALCHEMY`
 - `InstrumentSet.PSYCOPG`
@@ -295,6 +151,7 @@ Below is a complete list of available members in the `InstrumentSet` enum that y
 - `InstrumentSet.TORTOISEORM`
 
 #### Task Queues
+
 - `InstrumentSet.CELERY`
 - `InstrumentSet.PIKA`
 - `InstrumentSet.AIOPika`
@@ -304,6 +161,7 @@ Below is a complete list of available members in the `InstrumentSet` enum that y
 - `InstrumentSet.BOTO3_SQS`
 
 #### AI Frameworks
+
 - `InstrumentSet.LANGCHAIN`
 - `InstrumentSet.LANGGRAPH`
 - `InstrumentSet.LLAMAINDEX`

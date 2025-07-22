@@ -13,6 +13,7 @@ Before you can start tracking sessions, initialize the Netra SDK:
 
 ```python python
 from netra import Netra
+from netra.instrumentation.instruments import InstrumentSet
 
 # Initialize with default settings
 Netra.init(app_name="Your application name")
@@ -24,7 +25,8 @@ Netra.init(
     app_name="Your application name",
     headers=headers,
     trace_content=True,
-    environment="Your Application environment"
+    environment="Your Application environment",
+	instruments={InstrumentSet.OPENAI}
 )
 ```
 
@@ -91,71 +93,6 @@ Netra.set_custom_event(event_name="error_occurred", attributes={
     "error_message": "Invalid credentials",
     "severity": "high",
     "user_action": "login"
-})
-```
-
-</CodeGroup>
-
-## Example Scenarios
-
-### E-commerce Checkout Flow
-
-<CodeGroup>
-
-```python python
-# Start checkout session
-Netra.set_session_id("checkout-123")
-Netra.set_user_id("user-456")
-Netra.set_custom_attributes("checkout_type", "standard")
-
-# Track cart addition
-Netra.set_custom_event("cart_item_added", {
-    "product_id": "PROD789",
-    "quantity": 2,
-    "subtotal": 150.00
-})
-
-# Track checkout start
-Netra.set_custom_event("checkout_started", {
-    "cart_items": 3,
-    "total_amount": 350.00,
-    "payment_method": "credit_card"
-})
-
-# Track payment success
-Netra.set_custom_event("payment_successful", {
-    "transaction_id": "TXN456",
-    "amount": 350.00,
-    "currency": "USD",
-    "payment_provider": "stripe"
-})
-```
-
-</CodeGroup>
-
-### User Onboarding Flow
-
-<CodeGroup>
-
-```python python
-# Start onboarding session
-Netra.set_session_id("onboarding-789")
-Netra.set_user_id("user-123")
-Netra.set_custom_attributes("onboarding_version", "2.0")
-
-# Track tutorial completion
-Netra.set_custom_event("tutorial_completed", {
-    "tutorial_id": "basic_setup",
-    "duration": 120,  # seconds
-    "steps_completed": 5,
-    "user_score": 85
-})
-
-# Track feature discovery
-Netra.set_custom_event("feature_discovered", {
-    "feature_name": "advanced_search",
-    "discovery_method": "tooltip",
-    "user_level": "new"
 })
 ```
 
