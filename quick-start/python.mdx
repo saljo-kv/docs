@@ -91,7 +91,7 @@ export NETRA_API_KEY="your-api-key-here"
 
 ### Code Snippet
 
-Follow the code below to initialize Netra in you application
+Follow the code below to initialize Netra in you application. By default, Netra will instrument all the installed packages.
 
 <CodeGroup>
 
@@ -109,8 +109,7 @@ Netra.init(
     app_name="Your application name",
     headers=headers,
     trace_content=True,
-    environment="Your Application environment",
-    instruments={InstrumentSet.OPENAI, InstrumentSet.ANTHROPIC},
+    environment="Your Application environment"
 )
 ```
 

@@ -84,7 +84,7 @@ description: "Comprehensive list of all supported LLM providers, vector database
 
 ## Custom Instrumentation Selection
 
-Control which instrumentations are enabled as per your application. By default, no instrumentations is enabled when you initialize the SDK. You can selectively enable or disable instrumentations using the `instruments` and `block_instruments` parameters in `Netra.init()`.
+Control which instrumentations are enabled as per your application. By default, all installed packages are instrumented. The default behavior is enabled when you initialize the SDK. You can selectively enable or disable instrumentations using the `instruments` and `block_instruments` parameters in `Netra.init()`.
 
 Below is a complete list of available members in the `InstrumentSet` enum that you can use:
 
