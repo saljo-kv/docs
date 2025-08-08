@@ -8,7 +8,8 @@ Netra SDK offers a set of powerful decorators to simplify the process of instrum
 Our three main decorators are:
 - `@workflow`: For high-level business transactions or main entry points.
 - `@agent`: For AI agents or complex components that orchestrate multiple tasks.
-- `@task`: For individual units of work or sub-processes within a workflow or agent.
+- `@task`: For individual units of work or sub-processes within an agent.
+- `@span`: For tracing specific operations or steps within a workflow.
 
 ## `@workflow`
 
@@ -76,6 +77,21 @@ def data_validation_task(data):
     """Task for validating input data"""
     # This function's execution is traced as a separate span
     return validate_schema(data)
+```
+
+## `@span`
+
+Use the `@span` decorator for tracing specific operations or steps within a workflow.
+
+<CodeGroup>
+
+```python Python
+from netra.decorators import span
+
+@span
+
+def my_span():
+    # ...
 ```
 
 </CodeGroup>
