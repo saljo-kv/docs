@@ -20,6 +20,7 @@ def init(
     block_instruments: Optional[Set[NetraInstruments]] = None,
     enable_root_span: Optional[bool] = None,
     debug_mode: Optional[bool] = None,
+    enable_scrubbing: Optional[bool] = None,
 ) -> None
 ```
 
@@ -37,6 +38,7 @@ def init(
   - `block_instruments` (Optional[Set[NetraInstruments]]): Set of instruments to block
   - `enable_root_span` (Optional[bool]): Enable root span to trace the entire application in a single trace
   - `debug_mode` (Optional[bool]): Enable debug mode to get application logs
+  - `enable_scrubbing` (Optional[bool]): Enable scrubbing of sensitive data
 - **Returns**: None
 
 ### set_session_id
