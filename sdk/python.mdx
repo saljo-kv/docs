@@ -99,6 +99,31 @@ def set_custom_event(event_name: str, attributes: Any) -> None
 - **Returns**: None
 
 
+### add_conversation
+<CodeGroup>
+
+```python python
+def add_conversation(type: ConversationType, field_name: str, value: Any) -> None
+```
+
+</CodeGroup>
+
+- **Description**: Append a conversation entry for the current active span and set/update the span attribute `conversation` as an array. If the `conversation` array already exists, the new entry is appended; otherwise, a new array is initialized.
+- **Parameters**:
+  - `type` (ConversationType): The conversation entry type. One of `ConversationType.INPUT`, `ConversationType.OUTPUT`, or `ConversationType.SYSTEM`.
+  - `field_name` (str): A non-empty field name to describe the value (e.g., "prompt", "response", "system_message").
+  - `value` (Any): The value to record. Must not be `None`.
+- **Returns**: None
+- **Note**: If you are using one of the Netra instrumentations to trace the llm invocations in your application, then the messages that are associated with that invocation (User Message, System Message and Assistant Message) will be captured automatically without using this method. In such cases, using this method may result in duplication of messages in the dashboard.
+
+- **Import**:
+
+```python
+from netra.models import ConversationType
+```
+
+
+
 ## SpanWrapper Class
 
 ### set_prompt
@@ -226,3 +251,29 @@ class UsageModel(BaseModel):
 ```
 
 </CodeGroup>
+
+## ConversationType Enum
+
+<CodeGroup>
+
+```python python
+class ConversationType(str, Enum):
+    INPUT = "input"
+    OUTPUT = "output"
+    SYSTEM = "system"
+```
+
+</CodeGroup>
+
+- **Description**: Enumerates the allowed conversation entry types used by `add_conversation`.
+- **Values**:
+  - `ConversationType.INPUT` → "input": marks user/input content
+  - `ConversationType.OUTPUT` → "output": marks model/output content
+  - `ConversationType.SYSTEM` → "system": marks system or instruction content
+
+- **Import**:
+
+```python
+from netra.models import ConversationType
+```
+
