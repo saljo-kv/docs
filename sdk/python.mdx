@@ -116,7 +116,7 @@ def add_conversation(type: ConversationType, field_name: str, value: Any) -> Non
 - **Returns**: None
 - **Import**: 
 ```python
-from netra.models import ConversationType
+from netra.session_manager import ConversationType
 ```
 - **Note**: If you are using one of the Netra instrumentations to trace the llm invocations in your application, then the messages that are associated with that invocation (User Message, System Message and Assistant Message) will be captured automatically without using this method. In such cases, using this method may result in duplication of messages in the dashboard.
 
