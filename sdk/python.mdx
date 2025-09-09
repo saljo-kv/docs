@@ -103,7 +103,7 @@ def set_custom_event(event_name: str, attributes: Any) -> None
 <CodeGroup>
 
 ```python python
-def add_conversation(type: ConversationType, field_name: str, value: Any) -> None
+def add_conversation(conversation_type: ConversationType, field_name: str, value: Any) -> None
 ```
 
 </CodeGroup>
@@ -114,7 +114,7 @@ def add_conversation(type: ConversationType, field_name: str, value: Any) -> Non
 from netra.session_manager import ConversationType
 ```
 - **Parameters**:
-  - `type` (ConversationType): The conversation entry type. One of `ConversationType.INPUT`, `ConversationType.OUTPUT`, or `ConversationType.SYSTEM`.
+  - `conversation_type` (ConversationType): The conversation entry type. One of `ConversationType.INPUT`, `ConversationType.OUTPUT`, or `ConversationType.SYSTEM`.
   - `field_name` (str): A non-empty field name to describe the value (e.g., "prompt", "response", "system_message").
   - `value` (Any): The value to record. Must not be `None`.
 - **Returns**: None
