@@ -103,7 +103,7 @@ def set_custom_event(event_name: str, attributes: Any) -> None
 <CodeGroup>
 
 ```python python
-def add_conversation(conversation_type: ConversationType, field_name: str, value: Any) -> None
+def add_conversation(conversation_type: ConversationType, role: str, value: Any) -> None
 ```
 
 </CodeGroup>
@@ -114,9 +114,9 @@ def add_conversation(conversation_type: ConversationType, field_name: str, value
 from netra.session_manager import ConversationType
 ```
 - **Parameters**:
-  - `conversation_type` (ConversationType): The conversation entry type. One of `ConversationType.INPUT`, `ConversationType.OUTPUT`, or `ConversationType.SYSTEM`.
-  - `field_name` (str): A non-empty field name to describe the value (e.g., "prompt", "response", "system_message").
-  - `value` (Any): The value to record. Must not be `None`.
+  - `conversation_type` (ConversationType): The conversation entry type. One of `ConversationType.INPUT`, or `ConversationType.OUTPUT`.
+  - `role` (str): A non-empty role name to describe the message (e.g., "user", "assistant", "system").
+  - `value` (Any): The message content to record. Must not be `None`.
 - **Returns**: None
 - **Note**: If you are using one of the Netra instrumentations to trace the llm invocations in your application, then the messages that are associated with that invocation (User Message, System Message and Assistant Message) will be captured automatically without using this method. In such cases, using this method may result in duplication of messages in the dashboard.
 
