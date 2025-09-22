@@ -21,6 +21,7 @@ def init(
     enable_root_span: Optional[bool] = None,
     debug_mode: Optional[bool] = None,
     enable_scrubbing: Optional[bool] = None,
+    blocked_spans: Optional[List[str]] = None,
 ) -> None
 ```
 
@@ -39,6 +40,7 @@ def init(
   - `enable_root_span` (Optional[bool]): Enable root span to trace the entire application in a single trace
   - `debug_mode` (Optional[bool]): Enable debug mode to get application logs
   - `enable_scrubbing` (Optional[bool]): Enable scrubbing of sensitive data
+  - `blocked_spans` (Optional[List[str]]): List of spans to block. Supports wildcard matching.
 - **Returns**: None
 
 ### set_session_id
